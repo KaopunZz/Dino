@@ -144,6 +144,7 @@
             margin-bottom: 15px;
             border-radius: 8px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
             transition: var(--transition);
         }
@@ -167,13 +168,13 @@
         .document-title {
             flex-grow: 1;
             text-align: left;
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--primary-color);
+            margin-right: 10px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         
         .view-button {
-            margin-left: 15px;
             background-color: var(--view-color);
             color: white;
             border: none;
@@ -181,8 +182,9 @@
             border-radius: 20px;
             cursor: pointer;
             transition: var(--transition);
+            flex-shrink: 0;
         }
-        
+
         .view-button:hover {
             background-color: var(--view-dark);
             transform: translateY(-2px);
@@ -450,6 +452,24 @@
                 margin-bottom: 10px;
             }
         }
+
+        #docContent {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+        max-width: 100%;
+    }
+
+    .document-item {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .document-title {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 70%; /* ปรับตามความเหมาะสม */
+    }
     </style>
 </head>
 <body>
