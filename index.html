@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dynamic Document Manager</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -39,7 +39,7 @@
         
         .container {
             max-width: 1000px;
-            margin: 20px auto; /* ปรับจาก 40px เป็น 20px */
+            margin: 20px auto;
             padding: 20px;
             position: relative;
         }
@@ -55,8 +55,8 @@
             font-weight: 600;
             letter-spacing: 1px;
             text-transform: uppercase;
-            margin-top: 0; /* เพิ่มบรรทัดนี้ */
-            padding-right: 60px; /* เพิ่มบรรทัดนี้ เพื่อให้ไม่ทับกับไอคอน */
+            margin-top: 0;
+            padding-right: 60px;
         }
         
         h2 {
@@ -242,22 +242,12 @@
             background-color: var(--delete-dark);
         }
         
-        .edit-mode input, .edit-mode textarea {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .edit-mode span, .edit-mode p {
+        .edit-mode .view-only {
             display: none;
         }
 
-        .view-mode input, .view-mode textarea {
+        .view-mode .edit-only {
             display: none;
-        }
-
-        .view-mode span, .view-mode p {
-            display: block;
         }
 
         .button-group {
@@ -396,7 +386,6 @@
             letter-spacing: normal;
         }
 
-        /* Profile Icon Styles */
         .profile-icon {
             position: absolute;
             top: 20px;
@@ -413,7 +402,7 @@
         }
 
         #documentListPage .profile-icon {
-            display: flex; /* แสดงเฉพาะในหน้า document list */
+            display: flex;
         }
 
         #documentListPage {
@@ -426,7 +415,6 @@
             object-fit: cover;
             border-radius: 50%;
         }
-
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -454,22 +442,22 @@
         }
 
         #docContent {
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        white-space: pre-wrap;
-        max-width: 100%;
-    }
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            max-width: 100%;
+        }
 
-    .document-item {
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
+        .document-item {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
 
-    .document-title {
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        max-width: 70%; /* ปรับตามความเหมาะสม */
-    }
+        .document-title {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 70%;
+        }
     </style>
 </head>
 <body>
@@ -505,16 +493,16 @@
             </div>
         </div>
 
-        <!-- Third Page: View Document -->
+        <!-- Third Page: View Document (continued) -->
         <div id="viewDocumentPage" class="page card view-mode">
             <h2>Document Details</h2>
             <div id="documentDetails">
-                <h3 id="docTitle"></h3>
-                <p><em>Written by: <span id="docWriter"></span></em></p>
-                <p id="docContent"></p>
-                <input type="text" id="editTitle">
-                <input type="text" id="editWriter">
-                <textarea id="editContent" rows="5"></textarea>
+                <h3 id="docTitle" class="view-only"></h3>
+                <p class="view-only"><em>Written by: <span id="docWriter"></span></em></p>
+                <p id="docContent" class="view-only"></p>
+                <input type="text" id="editTitle" class="edit-only" placeholder="Enter title">
+                <input type="text" id="editWriter" class="edit-only" placeholder="Enter writer">
+                <textarea id="editContent" class="edit-only" rows="5" placeholder="Enter content"></textarea>
             </div>
             <div class="button-group">
                 <button onclick="showPage('documentListPage')" class="back-button">Back</button>
@@ -793,6 +781,11 @@
             viewDocumentPage.classList.add('view-mode');
             editBtn.style.display = 'inline-block';
             saveBtn.style.display = 'none';
+
+            // Update the view-only elements with the edited content
+            document.getElementById('docTitle').textContent = document.getElementById('editTitle').value;
+            document.getElementById('docWriter').textContent = document.getElementById('editWriter').value;
+            document.getElementById('docContent').textContent = document.getElementById('editContent').value;
         }
 
         function downloadDocument() {
