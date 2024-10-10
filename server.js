@@ -7,12 +7,12 @@ const admin = require('firebase-admin');
 const app = express();
 const port = 3001;
 
-app.use(cors());
+app.use(cors({origin: true}));
 app.use(bodyParser.json());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Initialize Firebase Admin SDK
-const serviceAccount = require('./dino-d5760-firebase-adminsdk-e8ic2-0c9e41fed0.json');
+const serviceAccount = require('./dino-d5760-firebase-adminsdk-e8ic2-0c9e41fed0');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
@@ -72,6 +72,4 @@ app.delete('/api/documents/:id', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+module.exports = app;

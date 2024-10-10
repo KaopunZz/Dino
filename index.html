@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Management System</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -684,7 +685,7 @@
         // Fetch all documents
         async function fetchDocuments() {
             try {
-                const response = await fetch('http://localhost:3001/api/documents');
+                const response = await fetch('/api/documents');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
@@ -704,7 +705,7 @@
 
             if (topic && writer && content) {
                 try {
-                    const response = await fetch('http://localhost:3001/api/documents', {
+                    const response = await fetch('/api/documents', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -738,7 +739,7 @@
 
             if (editedDoc.topic && editedDoc.writer && editedDoc.content) {
                 try {
-                    const response = await fetch(`http://localhost:3001/api/documents/${documents[currentEditIndex].id}`, {
+                    const response = await fetch(`/api/documents/${documents[currentEditIndex].id}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -768,7 +769,7 @@
             if (selectedDocs.length > 0) {
                 try {
                     for (const doc of selectedDocs) {
-                        const response = await fetch(`http://localhost:3001/api/documents/${doc.id}`, {
+                        const response = await fetch(`/api/documents/${doc.id}`, {
                             method: 'DELETE',
                         });
                         if (!response.ok) {
